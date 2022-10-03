@@ -1,9 +1,15 @@
 const fs = require('node:fs')
 const path = require('node:path')
+const dotenv = require('dotenv')
+const connectDB = require('./config/db')
 // Require the necessary discord.js classes
 const { Client, GatewayIntentBits, Collection } = require('discord.js')
-// env variables
-require('dotenv').config()
+
+// Load config
+dotenv.config({ path: './config/.env' })
+
+connectDB()
+
 const token = process.env.DISCORD_TOKEN
 
 // Create a new client instance
