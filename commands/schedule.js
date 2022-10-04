@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, time } = require('discord.js');
-const moment = require('moment')
+const { DateTime } = require('luxon')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,13 +11,25 @@ module.exports = {
                 .setRequired(true))
         .addStringOption(option =>
             option.setName('time')
-                .setDescription('Time of match (in UTC)')
+                .setDescription('Time of match (in UTC and HH:MM)')
                 .setRequired(true)),
     async execute(interaction) {
-        const day = interaction.options.getString('day')
-        const time = interaction.options.getString('time')
-        // TODO: Need to deal with not wanting to have to put in the month. if the day listed is less than the current day, then we can assume that we go to next month
-        const month = moment()
-        await interaction.reply('Your match will be at ' + time + 'UTC, on month ' + day + ' yes this is definitely finished haha awesome')
+        currDate = DateTime.utc()
+        // TODO: see if i can make it so osu players can just put SAT or SUN.
+        // TODO: error handling for incorrect input
+        const year = currDate.year
+        month = currDate.month
+        const day = parseInt(interaction.options.getString('day'))
+        // This assumes that the player is scheduling for the next month
+        if (day < currDate.day) {
+            month += 1
+            month %= 12
+        }
+        const time = (interaction.options.getString('time')).split(':')
+        // We can assume that they entered HH:MM
+        const hour = parseInt(time[0])
+        const minute = parseInt(time[1])
+        const matchTime = Math.trunc(DateTime.local(year, month, day, hour, minute,{ zone: "utc" }).toSeconds())
+        await interaction.reply('current time: <t:' + matchTime + ':R>')
     },
 }
