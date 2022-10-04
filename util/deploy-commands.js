@@ -1,12 +1,15 @@
 const fs = require('node:fs')
 const path = require('node:path')
+const dotenv = require('dotenv')
 const { REST, SlashCommandBuilder, Routes } = require('discord.js');
-require('dotenv').config()
+
+dotenv.config({ path: '../config/.env' })
+
 const clientId =  process.env.CLIENT_ID
 const token = process.env.DISCORD_TOKEN
 
 const commands = []
-const commandsPath = path.join(__dirname, 'commands')
+const commandsPath = path.join('..', 'commands')
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'))
 
 for (const file of commandFiles) {

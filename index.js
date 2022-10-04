@@ -1,7 +1,7 @@
 const fs = require('node:fs')
 const path = require('node:path')
 const dotenv = require('dotenv')
-const connectDB = require('./config/db')
+const connectDB = require('./config/db.js')
 // Require the necessary discord.js classes
 const { Client, GatewayIntentBits, Collection } = require('discord.js')
 
