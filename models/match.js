@@ -1,11 +1,14 @@
 const mongoose = require('mongoose')
+const connectDB = require('../config/db')
 
+// Store match date as number for simplification and use of epoch time
 const matchSchema = mongoose.Schema({
+    _id: Number,
     team1: String,
     team2: String,
-    matchTime: Date
+    time: Number
 })
 
-const MatchMessage = mongoose.model('MatchMessage', matchSchema)
+const Match = mongoose.model('Match', matchSchema)
 
-module.exports = MatchMessage
+module.exports = { Match }

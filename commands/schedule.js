@@ -1,10 +1,15 @@
 const { SlashCommandBuilder, time } = require('discord.js');
 const { DateTime } = require('luxon')
+const { Match } = require('../models/match.js')
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('schedule')
         .setDescription('Schedules a time for a match')
+        .addIntegerOption(option =>
+            option.setName('match_id')
+                .setDescription('ID of the Match')
+                .setRequired(true))
         .addStringOption(option =>
             option.setName('day')
                 .setDescription('Day of Match')
@@ -14,6 +19,7 @@ module.exports = {
                 .setDescription('Time of match (in UTC and HH:MM)')
                 .setRequired(true)),
     async execute(interaction) {
+        matchID = interaction.options.getInteger('match_id')
         currDate = DateTime.utc()
         // TODO: see if i can make it so osu players can just put SAT or SUN.
         // TODO: error handling for incorrect input
@@ -29,7 +35,14 @@ module.exports = {
         // We can assume that they entered HH:MM
         const hour = parseInt(time[0])
         const minute = parseInt(time[1])
-        const matchTime = Math.trunc(DateTime.local(year, month, day, hour, minute,{ zone: "utc" }).toSeconds())
-        await interaction.reply('current time: <t:' + matchTime + ':R>')
+        const matchTime = Math.trunc(DateTime.local(year, month, day, hour, minute,{ zone: "utc" }))
+
+        // mongoDB and js store Dates as milliseconds
+        const match = await Match.findOneAndUpdate({ _id: matchID }, { time: matchTime })
+
+        await match.save()
+
+        // We have the divided by 1000 because discord's timestamp uses seconds instead of milliseconds
+        await interaction.reply(`The match between ${match.team1} and ${match.team2} will be at: <t:${matchTime / 1000}:R>`)
     },
 }
