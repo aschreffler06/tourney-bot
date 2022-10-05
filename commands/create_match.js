@@ -20,7 +20,7 @@ module.exports = {
                 .setRequired(true))
         .addStringOption(option =>
             option.setName('date')
-                .setDescription('The date of the match')
+                .setDescription('The date of the match. MM/DD format')
                 .setRequired(true))
         .addStringOption(option =>
                     option.setName('time')
@@ -30,12 +30,21 @@ module.exports = {
         async execute(interaction) {
             // TODO: deal with date input stuff
             const currDate = DateTime.utc()
-            // TODO: figure out if im going to abstract out the date stuff or look more into luxon
-            const year = currDate.year
-            const matchTime = Math.trunc(DateTime.local(year, month, day, hour, minute, { zone: "utc" }))
+            
+            const date = interaction.options.getString('date').split('/')
+            const month = date[0]
+            const day = date[1]
+            const time = interaction.options.getString('time').split(':')
+            const hour = time[0]
+            const minute = time[1]
+
+            const matchTime = Math.trunc(DateTime.fromObject({ month: month, day: day, hour: hour, minute: minute} , { zone: "utc" }))
             const match = new Match({ _id: interaction.options.getInteger('match_id'),
                                         team1: interaction.options.getString('team1'),
                                         team2: interaction.options.getString('team2'),
                                         time: matchTime})
+            await match.save()
+            await interaction.reply(`Match between ${interaction.options.getString('team1')} and ` +
+                `${interaction.options.getString('team2')} created for <t:${matchTime / 1000}:R>`)
         }
 }

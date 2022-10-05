@@ -44,6 +44,7 @@ module.exports = {
         await match.save()
 
         // We have the divided by 1000 because discord's timestamp uses seconds instead of milliseconds
-        await interaction.reply(`The match between ${match.team1} and ${match.team2} will be at: <t:${matchTime / 1000}:R>`)
+        await interaction.reply(`The match between ${match.team1} and ${match.team2} ` +
+            `has been rescheduled to <t:${matchTime / 1000}:R>`)
     },
 }
