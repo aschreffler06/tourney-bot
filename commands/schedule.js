@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, time } = require('discord.js');
+const { SlashCommandBuilder } = require('discord.js');
 const { DateTime } = require('luxon')
 const { Match } = require('../models/match.js')
 
@@ -18,11 +18,12 @@ module.exports = {
             option.setName('time')
                 .setDescription('Time of match (in UTC and HH:MM)')
                 .setRequired(true)),
+
     async execute(interaction) {
         matchID = interaction.options.getInteger('match_id')
         currDate = DateTime.utc()
         // TODO: see if i can make it so osu players can just put SAT or SUN.
-        // TODO: error handling for incorrect input
+        // TODO: error handling for incorrect input on time/support just HH time
         const year = currDate.year
         month = currDate.month
         const day = parseInt(interaction.options.getString('day'))
