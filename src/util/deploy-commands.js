@@ -1,7 +1,7 @@
 const fs = require('node:fs')
 const path = require('node:path')
 const dotenv = require('dotenv')
-const { REST, SlashCommandBuilder, Routes } = require('discord.js');
+const { REST, Routes } = require('discord.js');
 const { chdir, cwd } = require('node:process');
 
 // This is for flexibility between running this file in the main src directory (also for scripts) and if you just run it in the util folder
