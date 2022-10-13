@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder } = require('discord.js')
 const { DateTime } = require('luxon')
 const { Match } = require('../models/match.js')
 
