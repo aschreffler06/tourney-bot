@@ -6,12 +6,12 @@ const connectDB = require('./config/db.js')
 const { Client, GatewayIntentBits, Collection } = require('discord.js')
 
 // Load config
-dotenv.config({ path: './config/.env' })
+dotenv.config({ path: './src/config/.env' })
 
 connectDB()
 
 const token = process.env.DISCORD_TOKEN
-
+console.log(token)
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
 

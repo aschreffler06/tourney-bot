@@ -9,11 +9,12 @@
   "name": "tourney-bot",
   "description": "A bot to help with osu! tournament hosting",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/start-bot.js",
   "scripts": {
-    "start": "node start-bot.js",
+    "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "commands:update": "node util/deploy-commands.js"
+    "lint": "esline .",
+    "commands:update": "node src/util/deploy-commands.js"
   },
   "repository": {
     "type": "git",
@@ -25,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/aschreffler06/tourney-bot/issues"
   },
-  "homepage": "https://github.com/aschreffler06/tourney-bot#readme"
+  "homepage": "https://github.com/aschreffler06/tourney-bot#readme",
+  "devDependencies": {
+    "eslint": "^8.26.0"
+  }
 }
