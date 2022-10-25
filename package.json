@@ -14,6 +14,7 @@
     "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "npx eslint .",
+    "format": "npx prettier --write .",
     "commands:update": "node src/util/deploy-commands.js"
   },
   "repository": {
@@ -28,6 +29,8 @@
   },
   "homepage": "https://github.com/aschreffler06/tourney-bot#readme",
   "devDependencies": {
-    "eslint": "^8.26.0"
+    "eslint": "^8.26.0",
+    "eslint-config-prettier": "^8.5.0",
+    "prettier": "2.7.1"
   }
 }

@@ -1,0 +1,3 @@
+# Ignore artifacts:
+.env
+src/node_modules
