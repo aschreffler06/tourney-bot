@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const connectDB = require('../config/db')
 
 // Store match date as number for simplification and use of epoch time
 const matchSchema = mongoose.Schema({

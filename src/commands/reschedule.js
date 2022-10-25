@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder } = require('discord.js')
 const { DateTime } = require('luxon')
 const { Match } = require('../models/match.js')
 
@@ -20,11 +20,11 @@ module.exports = {
                 .setRequired(true)),
 
     async execute(interaction) {
-        matchID = interaction.options.getInteger('match_id')
-        currDate = DateTime.utc()
+        const matchID = interaction.options.getInteger('match_id')
+        const currDate = DateTime.utc()
         // TODO: see if i can make it so osu players can just put SAT or SUN.
         // TODO: error handling for incorrect input on time/support just HH time
-        month = currDate.month
+        var month = currDate.month
         const day = parseInt(interaction.options.getString('day'))
         // This assumes that the player is scheduling for the next month
         if (day < currDate.day) {
@@ -35,7 +35,7 @@ module.exports = {
         // We can assume that they entered HH:MM
         const hour = parseInt(time[0])
         const minute = parseInt(time[1])
-        const matchTime = Math.trunc(DateTime.fromObject({ month: month, day: day, hour: hour, minute: minute } , { zone: "utc" }))
+        const matchTime = Math.trunc(DateTime.fromObject({ month: month, day: day, hour: hour, minute: minute } , { zone: 'utc' }))
         
         // mongoDB and js store Dates as milliseconds
         const match = await Match.findOneAndUpdate({ _id: matchID }, { time: matchTime })

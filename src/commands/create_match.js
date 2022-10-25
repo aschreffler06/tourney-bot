@@ -29,7 +29,6 @@ module.exports = {
 
         async execute(interaction) {
             // TODO: deal with date input stuff
-            const currDate = DateTime.utc()
             
             const date = interaction.options.getString('date').split('/')
             const month = date[0]
@@ -38,7 +37,7 @@ module.exports = {
             const hour = time[0]
             const minute = time[1]
 
-            const matchTime = Math.trunc(DateTime.fromObject({ month: month, day: day, hour: hour, minute: minute} , { zone: "utc" }))
+            const matchTime = Math.trunc(DateTime.fromObject({ month: month, day: day, hour: hour, minute: minute} , { zone: 'utc' }))
             const match = new Match({ _id: interaction.options.getInteger('match_id'),
                                         team1: interaction.options.getString('team1'),
                                         team2: interaction.options.getString('team2'),

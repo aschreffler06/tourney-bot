@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder } = require('discord.js')
 const { DateTime } = require('luxon')
 const { Match } = require('../models/match.js')
 
@@ -18,7 +18,7 @@ module.exports = {
             currTime = 0
         }
         const matches = await Match.find({ time: { $gte: currTime } }).exec()
-        var output = "The upcoming matches are:\n"
+        var output = 'The upcoming matches are:\n'
         matches.forEach (match =>
             output += `Match ${match._id} between ${match.team1} and ${match.team2} : <t:${match.time / 1000}:R>\n`
         )
