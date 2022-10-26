@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js')
+const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -8,6 +8,6 @@ module.exports = {
     async execute(interaction) {
         await interaction.reply(
             `match in 15 invites in 10. please dm <@273663943652671489> in game if you haven't recieved your invite!`
-        )
+        );
     },
-}
+};

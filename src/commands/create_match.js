@@ -1,6 +1,6 @@
-const { SlashCommandBuilder } = require('discord.js')
-const { DateTime } = require('luxon')
-const { Match } = require('../models/match.js')
+const { SlashCommandBuilder } = require('discord.js');
+const { DateTime } = require('luxon');
+const { Match } = require('../models/match.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -40,31 +40,31 @@ module.exports = {
     async execute(interaction) {
         // TODO: deal with date input stuff
 
-        const date = interaction.options.getString('date').split('/')
-        const month = date[0]
-        const day = date[1]
-        const time = interaction.options.getString('time').split(':')
-        const hour = time[0]
-        const minute = time[1]
+        const date = interaction.options.getString('date').split('/');
+        const month = date[0];
+        const day = date[1];
+        const time = interaction.options.getString('time').split(':');
+        const hour = time[0];
+        const minute = time[1];
 
         const matchTime = Math.trunc(
             DateTime.fromObject(
                 { month: month, day: day, hour: hour, minute: minute },
                 { zone: 'utc' }
             )
-        )
+        );
         const match = new Match({
             _id: interaction.options.getInteger('match_id'),
             team1: interaction.options.getString('team1'),
             team2: interaction.options.getString('team2'),
             time: matchTime,
-        })
-        await match.save()
+        });
+        await match.save();
         await interaction.reply(
             `Match between ${interaction.options.getString('team1')} and ` +
                 `${interaction.options.getString('team2')} created for <t:${
                     matchTime / 1000
                 }:R>`
-        )
+        );
     },
-}
+};
