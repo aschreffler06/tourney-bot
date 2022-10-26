@@ -5,7 +5,7 @@ const matchSchema = mongoose.Schema({
     _id: Number,
     team1: String,
     team2: String,
-    time: Number
+    time: Number,
 })
 
 const Match = mongoose.model('Match', matchSchema)

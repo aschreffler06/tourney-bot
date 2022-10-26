@@ -6,6 +6,8 @@ module.exports = {
         .setDescription('hi rety'),
 
     async execute(interaction) {
-        await interaction.reply(`match in 15 invites in 10. please dm <@273663943652671489> in game if you haven't recieved your invite!`)
-    }
+        await interaction.reply(
+            `match in 15 invites in 10. please dm <@273663943652671489> in game if you haven't recieved your invite!`
+        )
+    },
 }

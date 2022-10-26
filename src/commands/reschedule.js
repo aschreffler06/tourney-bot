@@ -6,18 +6,24 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('reschedule')
         .setDescription('Schedules a time for a match')
-        .addIntegerOption(option =>
-            option.setName('match_id')
+        .addIntegerOption((option) =>
+            option
+                .setName('match_id')
                 .setDescription('ID of the Match')
-                .setRequired(true))
-        .addStringOption(option =>
-            option.setName('day')
+                .setRequired(true)
+        )
+        .addStringOption((option) =>
+            option
+                .setName('day')
                 .setDescription('Day of Match')
-                .setRequired(true))
-        .addStringOption(option =>
-            option.setName('time')
+                .setRequired(true)
+        )
+        .addStringOption((option) =>
+            option
+                .setName('time')
                 .setDescription('Time of match (in UTC and HH:MM)')
-                .setRequired(true)),
+                .setRequired(true)
+        ),
 
     async execute(interaction) {
         const matchID = interaction.options.getInteger('match_id')
@@ -31,19 +37,29 @@ module.exports = {
             month += 1
             month %= 12
         }
-        const time = (interaction.options.getString('time')).split(':')
+        const time = interaction.options.getString('time').split(':')
         // We can assume that they entered HH:MM
         const hour = parseInt(time[0])
         const minute = parseInt(time[1])
-        const matchTime = Math.trunc(DateTime.fromObject({ month: month, day: day, hour: hour, minute: minute } , { zone: 'utc' }))
-        
+        const matchTime = Math.trunc(
+            DateTime.fromObject(
+                { month: month, day: day, hour: hour, minute: minute },
+                { zone: 'utc' }
+            )
+        )
+
         // mongoDB and js store Dates as milliseconds
-        const match = await Match.findOneAndUpdate({ _id: matchID }, { time: matchTime })
+        const match = await Match.findOneAndUpdate(
+            { _id: matchID },
+            { time: matchTime }
+        )
 
         await match.save()
 
         // We have the divided by 1000 because discord's timestamp uses seconds instead of milliseconds
-        await interaction.reply(`The match between ${match.team1} and ${match.team2} ` +
-            `has been rescheduled to <t:${matchTime / 1000}:R>`)
+        await interaction.reply(
+            `The match between ${match.team1} and ${match.team2} ` +
+                `has been rescheduled to <t:${matchTime / 1000}:R>`
+        )
     },
 }
