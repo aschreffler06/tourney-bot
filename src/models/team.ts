@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const teamSchema = mongoose.Schema({
-    name: String,
-    players: Array,
+    name: { type: String, required: true },
+    players: { type: Array, required: true }
 });
 
 const Team = mongoose.model('Team', teamSchema);
 
-module.exports = { Team };
+export { Team };
