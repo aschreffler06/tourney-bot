@@ -1,0 +1,7 @@
+{
+    "client": {
+        "id": "<DISCORD_BOT_ID>",
+        "token": "<DISCORD_BOT_TOKEN>"
+    },
+    "mongoUri": "<MONGO_URI>"
+}

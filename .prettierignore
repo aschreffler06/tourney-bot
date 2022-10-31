@@ -8,3 +8,4 @@ package.json
 README.md
 dist
 tsconfig.json
+config/*.json

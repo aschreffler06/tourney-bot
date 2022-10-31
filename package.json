@@ -20,7 +20,8 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "commands:update": "npm run build && node dist/util/deploy-commands.js"
+    "commands:update": "npm run build && node dist/src/util/deploy-commands.js",
+    "commands:delete": "npm run build && node dist/src/util/delete-commands.js"
   },
   "repository": {
     "type": "git",
