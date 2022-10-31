@@ -1,5 +1,5 @@
 import { ChatInputCommandInteraction } from "discord.js";
-import { DateTime, MonthNumbers } from 'luxon';
+import { DateTime } from 'luxon';
 import { Match } from '../models/match.js';
 
 module.exports = {
