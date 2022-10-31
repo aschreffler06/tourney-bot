@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "discord.js": "^14.5.0",
-    "dotenv": "^16.0.2",
+    "dotenv": "^16.0.3",
     "luxon": "^3.0.4",
     "mongodb": "^4.10.0",
     "mongoose": "^6.6.4"
@@ -11,9 +11,10 @@
   "version": "1.0.0",
   "main": "src/start-bot",
   "scripts": {
-    "build": "tsc --project tsconfig.json",
+    "build": "npm run clean && tsc --project tsconfig.json",
+    "clean": "tsc --build --clean",
     "start": "npm run start:bot",
-    "start:bot": "npm run build && node dist/start-bot.js",
+    "start:bot": "npm run build && node dist/src/start-bot.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
