@@ -1,17 +1,16 @@
-const fs = require('node:fs');
-const path = require('node:path');
-const connectDB = require('../config/db.js');
-// Require the necessary discord.js classes
-const { Client, GatewayIntentBits, Collection } = require('discord.js');
+import fs from 'node:fs';
+import path from 'node:path';
+import { Client, GatewayIntentBits, Collection } from 'discord.js';
+import connectDB from '../config/db.js';
+import ExtendedClient from './types/ExtendedClient.js';
 
-const Config = require('../config/config.json')
+const Config = require('../config/config.json');
 
 connectDB();
 
 const token = Config.client.token;
-console.log(token);
 // Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new ExtendedClient({ intents: [GatewayIntentBits.Guilds] });
 
 // Command Handling
 client.commands = new Collection();

@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction } from "discord.js";
+import { ChatInputCommandInteraction } from 'discord.js';
 import { DateTime } from 'luxon';
 import { Match } from '../models/match.js';
 
@@ -10,19 +10,19 @@ module.exports = {
             {
                 name: 'match_id',
                 description: 'ID of the match',
-                required: true
+                required: true,
             },
             {
                 name: 'day',
                 description: 'Day of match (the number day)',
-                required: true
+                required: true,
             },
             {
                 name: 'time',
                 description: 'Time of match (in UTC and HH:MM)',
-                required: true
-            }
-        ]
+                required: true,
+            },
+        ],
     },
 
     async execute(interaction: ChatInputCommandInteraction) {
@@ -42,9 +42,8 @@ module.exports = {
         const hour: number = parseInt(time[0]);
         const minute: number = parseInt(time[1]);
         const matchTime: DateTime = DateTime.fromObject(
-                { month: month, day: day, hour: hour, minute: minute },
-                { zone: 'utc' }
-            
+            { month: month, day: day, hour: hour, minute: minute },
+            { zone: 'utc' }
         );
 
         // mongoDB and js store Dates as milliseconds

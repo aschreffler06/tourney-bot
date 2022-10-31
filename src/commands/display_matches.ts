@@ -9,9 +9,9 @@ module.exports = {
         options: [
             {
                 name: 'show_past',
-                description: ('True if you want to see past matches')
-            }
-        ]
+                description: 'True if you want to see past matches',
+            },
+        ],
     },
 
     async execute(interaction: ChatInputCommandInteraction) {
@@ -25,9 +25,9 @@ module.exports = {
         var output = 'The upcoming matches are:\n';
         matches.forEach(
             (match: typeof Match) =>
-                (output += `Match ${match._id} between ${match.team1} and ${
-                    match.team2
-                } : <t:${match.time / 1000}:R>\n`)
+                (output += `Match ${match._id} between ${match.team1} and ${match.team2} : <t:${
+                    match.time / 1000
+                }:R>\n`)
         );
         await interaction.reply(output);
     },
