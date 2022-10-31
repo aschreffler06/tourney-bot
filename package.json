@@ -34,6 +34,7 @@
   },
   "homepage": "https://github.com/aschreffler06/tourney-bot#readme",
   "devDependencies": {
+    "@types/luxon": "^3.0.2",
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
     "prettier": "2.7.1"
