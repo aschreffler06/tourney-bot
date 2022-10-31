@@ -31,4 +31,4 @@ rest.put(Routes.applicationCommands(clientId), { body: commands })
     )
     .catch(console.error);
 
-export {}
+export {};
