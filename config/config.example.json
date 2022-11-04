@@ -1,7 +1,9 @@
 {
     "client": {
         "id": "<DISCORD_BOT_ID>",
-        "token": "<DISCORD_BOT_TOKEN>"
+        "token": "<DISCORD_BOT_TOKEN>",
+        "osuClientID": "<CLIENT_ID>",
+        "osuClientSecret": "<CLIENT_SECRET>"
     },
     "mongoUri": "<MONGO_URI>"
 }
