@@ -1,39 +1,41 @@
-import { ChatInputCommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import { DateTime } from 'luxon';
 import  { Match } from '../models/match.js';
 
 module.exports = {
-    data: {
-        name: 'create_match',
-        description: 'Creates a match',
-        options: [
-            {
-                name: 'match_id',
-                description: 'The ID of the match',
-                required: true,
-            },
-            {
-                name: 'team1',
-                description: 'Name of the first player/team',
-                required: true,
-            },
-            {
-                name: 'team2',
-                description: 'Name of the second player/team',
-                required: true,
-            },
-            {
-                name: 'date',
-                description: 'The date of the match. MM/DD format',
-                required: true,
-            },
-            {
-                name: 'time',
-                description: 'The time of the match. HH:MM format',
-                required: true,
-            },
-        ],
-    },
+    data: new SlashCommandBuilder()
+        .setName('create_match')
+        .setDescription('Use this command to create a match')
+        .addIntegerOption((option) =>
+            option
+                .setName('match_id')
+                .setDescription('The ID of the match')
+                .setRequired(true)
+        )
+        .addStringOption((option) =>
+            option
+                .setName('team1')
+                .setDescription('The name of the first team')
+                .setRequired(true)
+        )
+        .addStringOption((option) =>
+            option
+                .setName('team2')
+                .setDescription('The name of the second team')
+                .setRequired(true)
+        )
+        .addStringOption((option) =>
+            option
+                .setName('date')
+                .setDescription('The date of the match. MM/DD format')
+                .setRequired(true)
+        )
+        .addStringOption((option) =>
+            option
+                .setName('time')
+                .setDescription('The time of the match. HH:MM format')
+                .setRequired(true)
+        ),
 
     async execute(interaction: ChatInputCommandInteraction) {
         // TODO: deal with date input stuff

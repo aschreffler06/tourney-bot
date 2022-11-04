@@ -1,29 +1,29 @@
-import { ChatInputCommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import { DateTime } from 'luxon';
 import { Match } from '../models/match.js';
 
 module.exports = {
-    data: {
-        name: 'reschedule',
-        description: 'Schedules a time for a match',
-        options: [
-            {
-                name: 'match_id',
-                description: 'ID of the match',
-                required: true,
-            },
-            {
-                name: 'day',
-                description: 'Day of match (the number day)',
-                required: true,
-            },
-            {
-                name: 'time',
-                description: 'Time of match (in UTC and HH:MM)',
-                required: true,
-            },
-        ],
-    },
+    data: new SlashCommandBuilder()
+        .setName('reschedule')
+        .setDescription('Schedules a time for a match')
+        .addIntegerOption((option) =>
+            option
+                .setName('match_id')
+                .setDescription('ID of the Match')
+                .setRequired(true)
+        )
+        .addStringOption((option) =>
+            option
+                .setName('day')
+                .setDescription('Day of Match')
+                .setRequired(true)
+        )
+        .addStringOption((option) =>
+            option
+                .setName('time')
+                .setDescription('Time of match (in UTC and HH:MM)')
+                .setRequired(true)
+        ),
 
     async execute(interaction: ChatInputCommandInteraction) {
         const matchID: number = interaction.options.getInteger('match_id')!;

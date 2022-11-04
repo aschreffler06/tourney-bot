@@ -1,18 +1,18 @@
-import { ChatInputCommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import { DateTime } from 'luxon';
 import { Match } from '../models/match.js';
 
 module.exports = {
-    data: {
-        name: 'display_matches',
-        description: 'Displays upcoming matches',
-        options: [
-            {
-                name: 'show_past',
-                description: 'True if you want to see past matches',
-            },
-        ],
-    },
+    data: new SlashCommandBuilder()
+        .setName('display_matches')
+        .setDescription('Displays matches')
+        .addBooleanOption((option) =>
+            option
+                .setName('show_past')
+                .setDescription(
+                    'True if you want to see past matches (Before current time'
+                )
+        ),
 
     async execute(interaction: ChatInputCommandInteraction) {
         var currTime: number = DateTime.utc().toSeconds();
