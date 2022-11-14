@@ -40,6 +40,7 @@ module.exports = {
     async execute(interaction: ChatInputCommandInteraction) {
         // TODO: deal with date input stuff
 
+        // None of the objects can be null because they are required in the slash command
         const date: string[] = interaction.options.getString('date')!.split('/');
         const month: number = parseInt(date[0]);
         const day: number = parseInt(date[1]);
