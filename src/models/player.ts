@@ -7,8 +7,9 @@ const playerSchema = new Schema({
     badges: { type: Number, required: true },
     // number relative to UTC
     timezone: { type: Number },
+    country: { type: String }
 });
 
 const Player = model('Player', playerSchema);
 
-export { Player }
+export { Player, playerSchema };
