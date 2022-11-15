@@ -27,7 +27,7 @@ async function getAccessToken(): Promise<[number, string]> {
  * @returns A User object from the osu! api or null if there was an error
  */
 async function getUserByName(name: String): Promise<any> {
-    const token = await validateToken();
+    const token = validateToken();
     const config = {
         headers: { Authorization: `Bearer ${token}`}
     };

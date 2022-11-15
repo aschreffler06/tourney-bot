@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const teamSchema = mongoose.Schema({
+const teamSchema = new Schema({
     name: { type: String, required: true },
     players: { type: Array, required: true },
 });
 
-const Team = mongoose.model('Team', teamSchema);
+const Team = model('Team', teamSchema);
 
 export { Team };

@@ -30,6 +30,7 @@ module.exports = {
         const currDate: DateTime = DateTime.utc();
         // TODO: see if i can make it so osu players can just put SAT or SUN.
         // TODO: error handling for incorrect input on time/support just HH time
+        // TODO: Make sure that the proper team is rescheduling
         var month: number = currDate.month;
         const day: number = parseInt(interaction.options.getString('day')!);
         // This assumes that the player is scheduling for the next month
@@ -47,16 +48,18 @@ module.exports = {
         );
 
         // mongoDB and js store Dates as milliseconds
-        const match: typeof Match = await Match.findOneAndUpdate(
+        const match = await Match.findOneAndUpdate(
             { _id: matchID },
-            { time: matchTime }
-        );
+            { time: matchTime },
+        ).exec();
+        
+        if(!match) {
+            await interaction.reply('Please make sure you inputted the correct ID');
+        } else {
+            await interaction.reply(`The match between ${match.team1} and ${match.team2} ` +
+                `has been rescheduled to <t:${matchTime.toSeconds()}:R>`);
+        }
 
-        await match.save();
-
-        await interaction.reply(
-            `The match between ${match.team1} and ${match.team2} ` +
-                `has been rescheduled to <t:${matchTime.toSeconds()}:R>`
-        );
+        
     },
 };

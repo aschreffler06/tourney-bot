@@ -1,6 +1,13 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const matchSchema = mongoose.Schema({
+interface IMatch {
+    _id: number;
+    team1: string;
+    team2: string;
+    time: number;
+}
+
+const matchSchema = new Schema<IMatch>({
     _id: { type: Number, required: true },
     // team1: { type: mongoose.Types.ObjectId, required: true, ref: 'Team' },
     // team2: { type: mongoose.Types.ObjectId, required: true, ref: 'Team' },
@@ -10,6 +17,6 @@ const matchSchema = mongoose.Schema({
     time: { type: Number, required: true },
 });
 
-const Match = mongoose.model('Match', matchSchema);
+const Match = model<IMatch>('Match', matchSchema);
 
 export { Match };
