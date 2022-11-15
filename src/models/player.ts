@@ -6,7 +6,7 @@ const playerSchema = new Schema({
     rank: { type: Number, required: true },
     badges: { type: Number, required: true },
     // number relative to UTC
-    timezone: { type: Number, required: true },
+    timezone: { type: Number },
 });
 
 const Player = model('Player', playerSchema);
