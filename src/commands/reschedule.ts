@@ -28,9 +28,8 @@ module.exports = {
     async execute(interaction: ChatInputCommandInteraction) {
         const matchID: number = interaction.options.getInteger('match_id')!;
         const currDate: DateTime = DateTime.utc();
-        // TODO: see if i can make it so osu players can just put SAT or SUN.
         // TODO: error handling for incorrect input on time/support just HH time
-        // TODO: Make sure that the proper team is rescheduling
+        // TODO: Make sure that the proper team is rescheduling and other team potentially
         var month: number = currDate.month;
         const day: number = parseInt(interaction.options.getString('day')!);
         // This assumes that the player is scheduling for the next month
@@ -59,7 +58,5 @@ module.exports = {
             await interaction.reply(`The match between ${match.team1} and ${match.team2} ` +
                 `has been rescheduled to <t:${matchTime.toSeconds()}:R>`);
         }
-
-        
     },
 };
