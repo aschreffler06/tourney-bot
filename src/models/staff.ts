@@ -1,7 +1,8 @@
 import { Schema, model } from 'mongoose';
 
 interface IStaff {
-
+    _id: number;
+    role: string;
 };
 
 const staffSchema = new Schema<IStaff>({
@@ -16,4 +17,4 @@ const staffSchema = new Schema<IStaff>({
 
 const Staff = model('Staff', staffSchema);
 
-export { Staff, staffSchema }
+export { Staff, staffSchema, IStaff }

@@ -1,8 +1,11 @@
 import { Schema, model } from 'mongoose';
-import { mapSchema } from './index';
+import { mapSchema, IMap } from './index';
 
 interface IPool {
-
+    maps: IMap[];
+    numMaps: number;
+    round: string;
+    targetSr: number;
 };
 
 const poolSchema = new Schema<IPool>({
@@ -17,4 +20,4 @@ const poolSchema = new Schema<IPool>({
 
 const Pool = model('Pool', poolSchema);
 
-export { Pool, poolSchema }
+export { Pool, poolSchema, IPool }

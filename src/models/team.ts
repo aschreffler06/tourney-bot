@@ -1,11 +1,16 @@
 import { Schema, model } from 'mongoose';
-import { playerSchema } from './index';
+import { IPlayer, playerSchema } from './index';
 
-const teamSchema = new Schema({
+interface ITeam {
+    name: string;
+    players: IPlayer[];
+};
+
+const teamSchema = new Schema<ITeam>({
     name: { type: String, required: true },
     players: { type: [playerSchema], required: true },
 });
 
-const Team = model('Team', teamSchema);
+const Team = model<ITeam>('Team', teamSchema);
 
-export { Team, teamSchema };
+export { Team, teamSchema, ITeam };

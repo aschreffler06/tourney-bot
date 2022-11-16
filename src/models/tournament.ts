@@ -1,8 +1,19 @@
 import { Schema, model } from 'mongoose';
-import { teamSchema, staffSchema, poolSchema } from './index';
+import { teamSchema, staffSchema, poolSchema, ITeam, IStaff, IPool } from './index';
 
 interface ITournament {
-
+    host: string;
+    forumPost: string;
+    bracketLink: string;
+    acronym: string;
+    minTeamSize: number;
+    maxTeamSize: number;
+    format: string;
+    signups: ITeam[];
+    numQualify: number;
+    staff: IStaff[];
+    pools: IPool[];
+    guildId: string;
 }
 
 const tournamentSchema = new Schema<ITournament>({
@@ -18,10 +29,11 @@ const tournamentSchema = new Schema<ITournament>({
         default: '1v1',
         required: true
     },
-    signups: { type: [teamSchema], default: 0, required: true },
+    signups: { type: [teamSchema], default: [], required: true },
     numQualify: { type: Number, required: true},
     staff: { type: [staffSchema], default: [], required: true },
     pools: { type: [poolSchema], default: [], required: true },
+    guildId: { type: String, required: true }
     // TODO: (Bracket) Seeding information,
 })
 

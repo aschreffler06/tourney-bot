@@ -1,6 +1,15 @@
 import { Schema, model } from 'mongoose';
 
-const playerSchema = new Schema({
+interface IPlayer {
+    _id: number;
+    discord: number;
+    rank: number;
+    badges: number;
+    timezone: number;
+    country: string;
+}
+
+const playerSchema = new Schema<IPlayer>({
     _id: { type: Number, required: true },
     discord: { type: Number, required: true },
     rank: { type: Number, required: true },
@@ -10,6 +19,6 @@ const playerSchema = new Schema({
     country: { type: String }
 });
 
-const Player = model('Player', playerSchema);
+const Player = model<IPlayer>('Player', playerSchema);
 
-export { Player, playerSchema };
+export { Player, playerSchema, IPlayer };
