@@ -1,8 +1,9 @@
 import { Schema, model } from 'mongoose';
+import { Constants } from './constants';
 
 interface IMap {
     _id: number;
-    mod: string;
+    mod: string[];
     slot: number;
     multiplier: number;
     comment: string;
@@ -11,9 +12,9 @@ interface IMap {
 const mapSchema = new Schema<IMap>({
     _id: { type: Number, required: true },
     mod: {
-        type: String,
+        type: [String],
         // TODO: Make these able to be appended to each other
-        enum: ['NM', 'HD', 'HR', 'DT', 'FM', 'TB', 'EZ', 'FL', 'ACC'],
+        enum: Constants.TOURNEY_ROUNDS,
         required: true
     },
     slot: { type: Number, required: true },

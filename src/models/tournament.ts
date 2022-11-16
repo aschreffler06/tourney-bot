@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
-import { teamSchema, staffSchema, poolSchema, ITeam, IStaff, IPool } from './index';
+import { teamSchema, staffSchema, poolSchema, ITeam, IStaff, IPool, IMatch, matchSchema } from './index';
+import { Constants } from './constants'
 
 interface ITournament {
     host: string;
@@ -13,6 +14,7 @@ interface ITournament {
     numQualify: number;
     staff: IStaff[];
     pools: IPool[];
+    matchList: IMatch[];
     guildId: string;
 }
 
@@ -25,7 +27,7 @@ const tournamentSchema = new Schema<ITournament>({
     maxTeamSize: { type: Number, required: true},
     format: {
         type: String,
-        enum: ['1v1', '2v2', '3v3', '4v4'],
+        enum: Constants.FORMAT,
         default: '1v1',
         required: true
     },
@@ -33,7 +35,8 @@ const tournamentSchema = new Schema<ITournament>({
     numQualify: { type: Number, required: true},
     staff: { type: [staffSchema], default: [], required: true },
     pools: { type: [poolSchema], default: [], required: true },
-    guildId: { type: String, required: true }
+    matchList: { type: [matchSchema], default: [], required: true },
+    guildId: { type: String, required: true },
     // TODO: (Bracket) Seeding information,
 })
 

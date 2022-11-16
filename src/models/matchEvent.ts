@@ -1,0 +1,37 @@
+import { Schema, model, Types } from 'mongoose';
+import { Score, scoreSchema, IScore } from './index';
+import { Constants } from './constants';
+
+/**
+ * MatchEvent covers picks, bans, protects, etc.
+ * We will treat the properties of each event mutually exclusive from other event types.
+ */
+interface IMatchEvent {
+    // for all
+    eventType: string
+    map: string;
+    choosingTeam: Types.ObjectId;
+
+    // pick only
+    winningTeam: Types.ObjectId;
+    team1Scores: IScore[];
+    team2Scores: IScore[];
+};
+
+const matchEventSchema = new Schema<IMatchEvent>({
+    eventType: {
+        type: String,
+        enum: Constants.EVENT_TYPE,
+        required: true
+    },
+    map: { type: String, required: true },
+    choosingTeam: { type: Schema.Types.ObjectId, required: true, ref: 'Team' },
+
+    winningTeam: { type: Schema.Types.ObjectId, required: true, ref: 'Team' },
+    team1Scores: { type: [scoreSchema], default: [], required: true },
+    team2Scores: { type: [scoreSchema], default: [], required: true }
+});
+
+const MatchEvent = model('MatchEvent', matchEventSchema);
+
+export { MatchEvent, matchEventSchema, IMatchEvent };

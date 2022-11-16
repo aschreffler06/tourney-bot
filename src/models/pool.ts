@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { mapSchema, IMap } from './index';
+import { Constants } from './constants';
 
 interface IPool {
     maps: IMap[];
@@ -13,7 +14,7 @@ const poolSchema = new Schema<IPool>({
     numMaps: { type: Number, required: true },
     round: {
         type: String,
-        enum: ['Group Stage', 'Ro128', 'Ro64', 'Ro32', 'Ro16', 'QF', 'SF', 'F', 'GF']
+        enum: Constants.MODS
     },
     targetSr: { type: Number, required: true }
 });
