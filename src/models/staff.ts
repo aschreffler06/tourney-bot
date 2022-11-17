@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { Constants } from './constants';
 
 interface IStaff {
     _id: number;
@@ -10,7 +11,7 @@ const staffSchema = new Schema<IStaff>({
     _id: Number,
     role: {
         type: String,
-        enum: ['Host', 'Co-Host', 'Pooler', 'Playtester', 'Referee', 'Streamer', 'Commentator', 'GFX', 'Sheeter', 'Mapper'],
+        enum: Constants.STAFF_ROLES,
         required: true
     }
 });

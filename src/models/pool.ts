@@ -14,7 +14,7 @@ const poolSchema = new Schema<IPool>({
     numMaps: { type: Number, required: true },
     round: {
         type: String,
-        enum: Constants.MODS
+        enum: Constants.TOURNEY_ROUNDS
     },
     targetSr: { type: Number, required: true }
 });
