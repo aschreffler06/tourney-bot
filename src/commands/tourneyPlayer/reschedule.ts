@@ -1,6 +1,6 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import { DateTime } from 'luxon';
-import { Match } from '../models/match.js';
+import { Match } from '../../models/match.js';
 
 module.exports = {
     data: new SlashCommandBuilder()

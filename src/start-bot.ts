@@ -15,14 +15,18 @@ const client = new ExtendedClient({ intents: [GatewayIntentBits.Guilds] });
 // Command Handling
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs
-    .readdirSync(commandsPath)
-    .filter((file: string) => file.endsWith('.js'));
+const commandFolders = fs.readdirSync(commandsPath);
 
-for (const file of commandFiles) {
-    const filePath = path.join(commandsPath, file);
-    const command = require(filePath);
-    client.commands.set(command.data.name, command);
+for (const folder of commandFolders) {
+    const commandFiles = fs
+        .readdirSync(path.join(commandsPath, folder))
+        .filter((file: string) => file.endsWith('.js'));
+
+    for (const file of commandFiles) {
+        const filePath = path.join(commandsPath, folder, file);
+        const command = require(filePath);
+        client.commands.set(command.data.name, command);
+    }
 }
 
 // Event Handling
