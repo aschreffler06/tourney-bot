@@ -678,17 +678,17 @@ async function init() {
     //   }
       
     });
-  }
+}
 
   function printScore() {
     //channel.sendMessage(`${match.teams[0].name} ${match.score[0]} -- ${match.score[1]} ${match.teams[1].name}`);
     channel.sendMessage("currently disabled. Please enable!");
-  }
+}
 
   function promptPick() {
     //channel.sendMessage(`${match.teams[match.picking].name}, pick the next map`);
     channel.sendMessage("currently disabled. Please enable!");
-  }
+}
   
   async function close() {
   console.log(chalk.cyan("Closing..."));
