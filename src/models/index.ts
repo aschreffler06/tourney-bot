@@ -8,4 +8,4 @@ export { Map, mapSchema, IMap } from './map';
 export { MatchHistory, matchHistorySchema, IMatchHistory } from './matchHistory';
 export { MatchEvent, matchEventSchema, IMatchEvent } from './matchEvent';
 export { Score, scoreSchema, IScore } from './score';
-// export { Tournament } from './tournament';
+export { Tournament } from './tournament';

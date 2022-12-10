@@ -17,7 +17,8 @@ async function getAccessToken(): Promise<[number, string]> {
         grant_type: "client_credentials",
         scope: "public"
     };
-    const response = await axios.post(`https://osu.ppy.sh/oauth/token`, bodyParameters)
+    
+    const response = await axios.post('https://osu.ppy.sh/oauth/token', bodyParameters)
     return [response.data.access_token, response.data.expires_in + Math.trunc(DateTime.utc().toSeconds())];
 }
 
@@ -27,7 +28,7 @@ async function getAccessToken(): Promise<[number, string]> {
  * @returns A User object from the osu! api or null if there was an error
  */
 async function getUserByName(name: String): Promise<any> {
-    const token = validateToken();
+    const token = await validateToken();
     const config = {
         headers: { Authorization: `Bearer ${token}`}
     };

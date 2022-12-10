@@ -17,6 +17,7 @@ for (const folder of commandFolders) {
         .filter((file: string) => file.endsWith('.js'));
 
     for (const file of commandFiles) {
+        console.log(`Currently on: ${file}`)
         const filePath = path.join(commandsPath, folder, file);
         const command = require(filePath);
         commands.push(command.data.toJSON());

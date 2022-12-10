@@ -1,7 +1,7 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import { Player } from '../../models/player';
 const axios = require('axios');
-const osu = require('../controllers/osuController');
+const osu = require('../../controllers/osuController');
 
 module.exports = {
     data: new SlashCommandBuilder()

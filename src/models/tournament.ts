@@ -49,6 +49,7 @@ const tournamentSchema = new Schema<ITournament>({
     state: {
         type: String,
         enum: Constants.TOURNEY_STATE,
+        default: Constants.TOURNEY_STATE[0],
         required: true
     }
     // TODO: (Bracket) Seeding information,
