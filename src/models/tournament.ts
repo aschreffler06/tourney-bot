@@ -4,6 +4,7 @@ import { Constants } from './constants'
 
 interface ITournament {
     host: string;
+    name: string;
     forumPost: string;
     bracketLink: string;
     acronym: string;
@@ -22,6 +23,7 @@ interface ITournament {
 
 const tournamentSchema = new Schema<ITournament>({
     host: { type: String, required: true },
+    name: { type: String, required: true },
     forumPost: { type: String, required: true },
     bracketLink: { type: String },
     acronym: { type: String, required: true },
@@ -33,6 +35,7 @@ const tournamentSchema = new Schema<ITournament>({
         default: '1v1',
         required: true
     },
+    // TODO: this is kind of broken i think
     bws: {
         type: Schema.Types.Mixed,
         default: (rank: number, badges: number) => {
