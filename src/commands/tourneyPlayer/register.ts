@@ -91,9 +91,7 @@ module.exports = {
             
                             // Show modal and grab their input
                             console.log('Showing modal number ' + i);
-                            if (i == 1) {
-                                await teamNumInteraction.showModal(inputPlayersModal);
-                            }
+                            await teamNumInteraction.showModal(inputPlayersModal);
                             const playerSubmit = await interaction.awaitModalSubmit({ time: 100000 });
                             console.log(playerSubmit.fields.getTextInputValue('playerIdInput'));
                         }
