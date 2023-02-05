@@ -2,6 +2,10 @@ import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import { DateTime } from 'luxon';
 import { Match } from '../../models/match.js';
 
+/**
+ * Command for a team captain to reschedule their match. Double checks with the other captain to make sure that the reschedule is consensual
+ */
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('reschedule')
