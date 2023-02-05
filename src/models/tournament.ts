@@ -2,7 +2,7 @@ import { Schema, model, Types } from 'mongoose';
 import { teamSchema, staffSchema, poolSchema, ITeam, IStaff, IPool, IMatch, matchSchema } from './index';
 import { Constants } from './constants'
 
-interface ITournament {
+type ITournament = {
     host: string;
     name: string;
     forumPost: string;

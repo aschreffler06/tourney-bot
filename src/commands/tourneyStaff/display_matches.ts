@@ -15,13 +15,13 @@ module.exports = {
         ),
 
     async execute(interaction: ChatInputCommandInteraction) {
-        var currTime: number = DateTime.utc().toMillis();
+        let currTime: number = DateTime.utc().toMillis();
 
         // if we want to see past matches
         if (interaction.options.getBoolean('show_past')) {
             currTime = 0;
         }
-        var output = 'Matches:\n';
+        let output = 'Matches:\n';
         const matches = await Match.find({ time: { $gte: currTime }});
         // TODO: sort by date instead of id
         matches.forEach(function(match: any) {

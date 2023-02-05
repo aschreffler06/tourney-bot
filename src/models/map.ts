@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { Constants } from './constants';
 
-interface IMap {
+type IMap = {
     _id: number;
     mod: string[];
     slot: number;

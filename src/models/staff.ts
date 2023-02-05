@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { Constants } from './constants';
 
-interface IStaff {
+type IStaff = {
     _id: number;
     role: string;
 };

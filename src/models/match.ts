@@ -2,7 +2,7 @@ import { Constants } from './constants';
 import { Schema, model, Types } from 'mongoose';
 import { IMatchHistory, matchHistorySchema } from './index';
 
-interface IMatch {
+type IMatch = {
     _id: number;
     team1: Types.ObjectId;
     team2: Types.ObjectId;

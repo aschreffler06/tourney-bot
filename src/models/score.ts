@@ -1,7 +1,7 @@
 import { Schema, model, Types } from 'mongoose';
 import { Constants } from './constants';
 
-interface IScore {
+type IScore = {
     player: Types.ObjectId;
     score: number;
     mods: string[];

@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 
-interface IPlayer {
+type IPlayer = {
     _id: number;
     discord: number;
     rank: number;

@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { IPlayer, playerSchema } from './index';
 
-interface ITeam {
+type ITeam = {
     name: string;
     players: IPlayer[];
 };

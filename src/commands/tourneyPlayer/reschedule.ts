@@ -34,7 +34,7 @@ module.exports = {
         const currDate: DateTime = DateTime.utc();
         // TODO: error handling for incorrect input on time/support just HH time
         // TODO: Make sure that the proper team is rescheduling and other team potentially
-        var month: number = currDate.month;
+        let month: number = currDate.month;
         const day: number = parseInt(interaction.options.getString('day')!);
         // This assumes that the player is scheduling for the next month
         if (day < currDate.day) {

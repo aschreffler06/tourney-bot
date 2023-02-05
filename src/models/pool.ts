@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 import { mapSchema, IMap } from './index';
 import { Constants } from './constants';
 
-interface IPool {
+type IPool = {
     maps: IMap[];
     numMaps: number;
     round: string;

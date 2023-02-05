@@ -6,7 +6,7 @@ import { Constants } from './constants';
  * MatchEvent covers picks, bans, protects, etc.
  * We will treat the properties of each event mutually exclusive from other event types.
  */
-interface IMatchEvent {
+type IMatchEvent = {
     // for all
     eventType: string
     map: string;

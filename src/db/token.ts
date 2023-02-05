@@ -7,13 +7,13 @@ const osu = require('../controllers/osuController');
  * @returns The most up to date token
  */
 async function validateToken(): Promise<string> {
-    var token = await Token.findById(1).exec()
+    const token = await Token.findById(1).exec()
     if (token) {
         var access_token = token.token;
-        var expirationTime = token.expirationTime;
+        const expirationTime = token.expirationTime;
         // Token is expired
         if (expirationTime! < DateTime.utc().toSeconds()) {
-            let [accessToken, expirationTime] = await osu.getAccessToken();
+            const [accessToken, expirationTime] = await osu.getAccessToken();
             await Token.updateOne({ _id: 1, }, { token: accessToken, expirationTime: expirationTime });
         }
     } else {

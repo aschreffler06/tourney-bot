@@ -1,5 +1,5 @@
-import { DateTime } from "luxon";
-import { validateToken } from "../db/token";
+import { DateTime } from 'luxon';
+import { validateToken } from '../db/token';
 
 const axios = require('axios');
 const Config = require('../../config/config.json');
@@ -14,8 +14,8 @@ async function getAccessToken(): Promise<[number, string]> {
     const bodyParameters = {
         client_id: Config.osu.clientId,
         client_secret: Config.osu.clientSecret,
-        grant_type: "client_credentials",
-        scope: "public"
+        grant_type: 'client_credentials',
+        scope: 'public'
     };
     
     const response = await axios.post('https://osu.ppy.sh/oauth/token', bodyParameters)
@@ -27,7 +27,7 @@ async function getAccessToken(): Promise<[number, string]> {
  * @param name the name we want to search for
  * @returns A User object from the osu! api or null if there was an error
  */
-async function getUserByName(name: String): Promise<any> {
+async function getUserByName(name: string): Promise<any> {
     const token = await validateToken();
     const config = {
         headers: { Authorization: `Bearer ${token}`}

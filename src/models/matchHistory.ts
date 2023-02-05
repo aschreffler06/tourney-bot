@@ -1,7 +1,7 @@
 import { Schema, model, Types } from 'mongoose';
 import { MatchEvent, matchEventSchema, IMatchEvent } from './index';
 
-interface IMatchHistory {
+type IMatchHistory = {
     mpLink: string;
     events: IMatchEvent[];
     winner: Types.ObjectId;
