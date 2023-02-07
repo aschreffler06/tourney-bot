@@ -8,6 +8,7 @@
     "color-convert": "^2.0.1",
     "color-name": "^2.0.0",
     "discord.js": "^14.5.0",
+    "discord.js-collector-utils": "^1.9.1",
     "fs": "^0.0.1-security",
     "has-flag": "^5.0.1",
     "limiter": "^2.1.0",
@@ -27,9 +28,9 @@
     "dev": "tsc --watch",
     "build": "npm run clean && tsc --project tsconfig.json",
     "clean": "tsc --build --clean",
+    "test": "jest",
     "start": "npm run start:bot",
     "start:bot": "npm run build && node dist/src/start-bot.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .ts .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --ignore-path .gitignore --check .",
@@ -49,14 +50,16 @@
   },
   "homepage": "https://github.com/aschreffler06/tourney-bot#readme",
   "devDependencies": {
+    "@types/jest": "^29.4.0",
     "@types/luxon": "^3.0.2",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "@typescript-eslint/parser": "^5.50.0",
     "eslint": "^8.33.0",
     "eslint-config-prettier": "^8.5.0",
     "install": "^0.13.0",
+    "jest": "^29.4.1",
     "npm": "^9.4.1",
     "prettier": "2.7.1",
-    "typescript": "^4.9.3"
+    "typescript": "^4.9.5"
   }
 }
