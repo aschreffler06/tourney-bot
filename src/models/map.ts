@@ -24,4 +24,4 @@ const mapSchema = new Schema<IMap>({
 
 const Map = model('Map', mapSchema);
 
-export { Map, mapSchema, IMap }
+export { Map, mapSchema, IMap };

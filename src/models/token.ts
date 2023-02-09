@@ -15,4 +15,4 @@ const tokenSchema = new Schema({
 
 const Token = model('Token', tokenSchema);
 
-export { Token }
+export { Token };

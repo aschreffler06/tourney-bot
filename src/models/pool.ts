@@ -21,4 +21,4 @@ const poolSchema = new Schema<IPool>({
 
 const Pool = model('Pool', poolSchema);
 
-export { Pool, poolSchema, IPool }
+export { Pool, poolSchema, IPool };

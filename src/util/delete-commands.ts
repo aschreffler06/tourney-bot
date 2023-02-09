@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+// Will fix this later
 const { REST, Routes } = require('discord.js');
 
 const Config = require('../../config/config.json');

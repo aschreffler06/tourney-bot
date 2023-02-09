@@ -18,4 +18,4 @@ const staffSchema = new Schema<IStaff>({
 
 const Staff = model('Staff', staffSchema);
 
-export { Staff, staffSchema, IStaff }
+export { Staff, staffSchema, IStaff };

@@ -7,7 +7,7 @@ type IPlayer = {
     badges: number;
     timezone: number;
     country: string;
-}
+};
 
 const playerSchema = new Schema<IPlayer>({
     _id: { type: Number, required: true },

@@ -9,9 +9,7 @@ module.exports = {
         .addBooleanOption((option) =>
             option
                 .setName('show_past')
-                .setDescription(
-                    'True if you want to see past matches (Before current time'
-                )
+                .setDescription('True if you want to see past matches (Before current time')
         ),
 
     async execute(interaction: ChatInputCommandInteraction) {
@@ -22,12 +20,14 @@ module.exports = {
             currTime = 0;
         }
         let output = 'Matches:\n';
-        const matches = await Match.find({ time: { $gte: currTime }});
+        const matches = await Match.find({ time: { $gte: currTime } });
         // TODO: sort by date instead of id
-        matches.forEach(function(match: any) {
-            output += `Match ${match._id} between ${match.team1} and ${match.team2} : <t:${match.time / 1000}:R>\n`
-        })
+        matches.forEach(function (match) {
+            output += `Match ${match._id} between ${match.team1} and ${match.team2} : <t:${
+                match.time / 1000
+            }:R>\n`;
+        });
         console.log(output);
         await interaction.reply(output);
-    },
+    }
 };

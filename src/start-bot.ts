@@ -4,7 +4,7 @@ import { Client, GatewayIntentBits, Collection } from 'discord.js';
 import connectDB from '../config/db.js';
 import ExtendedClient from './types/ExtendedClient.js';
 
-const Config = require('../config/config.json');
+import Config from '../config/config.json';
 
 connectDB();
 
@@ -24,6 +24,7 @@ for (const folder of commandFolders) {
 
     for (const file of commandFiles) {
         const filePath = path.join(commandsPath, folder, file);
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
         const command = require(filePath);
         client.commands.set(command.data.name, command);
     }
@@ -31,12 +32,11 @@ for (const folder of commandFolders) {
 
 // Event Handling
 const eventsPath = path.join(__dirname, 'events');
-const eventFiles = fs
-    .readdirSync(eventsPath)
-    .filter((file: string) => file.endsWith('.js'));
+const eventFiles = fs.readdirSync(eventsPath).filter((file: string) => file.endsWith('.js'));
 
 for (const file of eventFiles) {
     const filePath = path.join(eventsPath, file);
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const event = require(filePath);
     if (event.once) {
         client.once(event.name, (...args: any) => event.execute(...args));

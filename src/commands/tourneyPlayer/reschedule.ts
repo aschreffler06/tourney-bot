@@ -11,16 +11,10 @@ module.exports = {
         .setName('reschedule')
         .setDescription('Schedules a time for a match')
         .addIntegerOption((option) =>
-            option
-                .setName('match_id')
-                .setDescription('ID of the Match')
-                .setRequired(true)
+            option.setName('match_id').setDescription('ID of the Match').setRequired(true)
         )
         .addStringOption((option) =>
-            option
-                .setName('day')
-                .setDescription('Day of Match')
-                .setRequired(true)
+            option.setName('day').setDescription('Day of Match').setRequired(true)
         )
         .addStringOption((option) =>
             option
@@ -51,16 +45,15 @@ module.exports = {
         );
 
         // mongoDB and js store Dates as milliseconds
-        const match = await Match.findOneAndUpdate(
-            { _id: matchID },
-            { time: matchTime },
-        ).exec();
-        
-        if(!match) {
+        const match = await Match.findOneAndUpdate({ _id: matchID }, { time: matchTime }).exec();
+
+        if (!match) {
             await interaction.reply('Please make sure you inputted the correct ID');
         } else {
-            await interaction.reply(`The match between ${match.team1} and ${match.team2} ` +
-                `has been rescheduled to <t:${matchTime.toSeconds()}:R>`);
+            await interaction.reply(
+                `The match between ${match.team1} and ${match.team2} ` +
+                    `has been rescheduled to <t:${matchTime.toSeconds()}:R>`
+            );
         }
-    },
+    }
 };

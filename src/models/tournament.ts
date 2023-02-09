@@ -1,6 +1,6 @@
 import { Schema, model, Types } from 'mongoose';
 import { teamSchema, staffSchema, poolSchema, ITeam, IStaff, IPool, IMatch, matchSchema } from './index';
-import { Constants } from './constants'
+import { Constants } from './constants';
 
 type ITournament = {
     host: string;
@@ -39,7 +39,7 @@ const tournamentSchema = new Schema<ITournament>({
     bws: {
         type: Schema.Types.Mixed,
         default: (rank: number, badges: number) => {
-            return rank ^ (0.9937 ^ (badges ^ 2))
+            return rank ^ (0.9937 ^ (badges ^ 2));
         },
         required: true
     },
@@ -56,8 +56,8 @@ const tournamentSchema = new Schema<ITournament>({
         required: true
     }
     // TODO: (Bracket) Seeding information,
-})
+});
 
 const Tournament = model('Tournament', tournamentSchema);
 
-export { Tournament }
+export { Tournament };

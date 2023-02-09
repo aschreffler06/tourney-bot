@@ -1,28 +1,19 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import { DateTime } from 'luxon';
-import  { Match } from '../../models/match.js';
+import { Match } from '../../models/match.js';
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('create_match')
         .setDescription('Use this command to create a match')
         .addIntegerOption((option) =>
-            option
-                .setName('match_id')
-                .setDescription('The ID of the match')
-                .setRequired(true)
+            option.setName('match_id').setDescription('The ID of the match').setRequired(true)
         )
         .addStringOption((option) =>
-            option
-                .setName('team1')
-                .setDescription('The name of the first team')
-                .setRequired(true)
+            option.setName('team1').setDescription('The name of the first team').setRequired(true)
         )
         .addStringOption((option) =>
-            option
-                .setName('team2')
-                .setDescription('The name of the second team')
-                .setRequired(true)
+            option.setName('team2').setDescription('The name of the second team').setRequired(true)
         )
         .addStringOption((option) =>
             option
@@ -48,21 +39,23 @@ module.exports = {
         const hour: number = parseInt(time[0]);
         const minute: number = parseInt(time[1]);
 
-        const matchTime =  DateTime.fromObject(
-                { month: month, day: day, hour: hour, minute: minute },
-                { zone: 'utc' }
-            );
+        const matchTime = DateTime.fromObject(
+            { month: month, day: day, hour: hour, minute: minute },
+            { zone: 'utc' }
+        );
         const match = new Match({
             _id: interaction.options.getInteger('match_id'),
             team1: interaction.options.getString('team1'),
             team2: interaction.options.getString('team2'),
-            time: matchTime,
+            time: matchTime
         });
-        
+
         await match.save();
         await interaction.reply(
             `Match between ${interaction.options.getString('team1')} and ` +
-                `${interaction.options.getString('team2')} created for <t:${ matchTime.toSeconds() }:R>`
+                `${interaction.options.getString(
+                    'team2'
+                )} created for <t:${matchTime.toSeconds()}:R>`
         );
-    },
+    }
 };
