@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { validateToken } from '../db/token';
+import { validateToken, getAccessToken } from '../db/token';
 import axios from 'axios';
 import Config from '../../config/config.json';
 import { OsuUserInfo } from '../data_objects';
@@ -10,7 +10,7 @@ const endpoint = 'https://osu.ppy.sh/api/v2';
  * Calls osu api to get the access token for the application's use. Also creates the time that it expires at
  * @returns A tuple where t[0] is the access token and t[1] is the time the token expires at in epoch seconds
  */
-async function getAccessToken(): Promise<[number, string]> {
+async function getNewAccessToken(): Promise<[number, string]> {
     const bodyParameters = {
         client_id: Config.osu.clientId,
         client_secret: Config.osu.clientSecret,
@@ -31,7 +31,7 @@ async function getAccessToken(): Promise<[number, string]> {
  * @returns A User object from the osu! api or null if there was an error
  */
 async function getUserByName(name: string): Promise<OsuUserInfo> {
-    const token = await validateToken();
+    const token = await getAccessToken();
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };
@@ -45,8 +45,8 @@ async function getUserByName(name: string): Promise<OsuUserInfo> {
         );
     } catch (err) {
         console.log(err);
-        return new OsuUserInfo();
+        throw new Error('Error getting user');
     }
 }
 
-export { getAccessToken, getUserByName };
+export { getNewAccessToken, getUserByName };
