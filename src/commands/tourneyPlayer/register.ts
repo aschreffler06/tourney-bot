@@ -33,8 +33,8 @@ module.exports = {
             return;
         }
 
+        //Prompt the user to choose whether they are registering as a team or as a free agent and go from there
         await interaction.deferReply({ ephemeral: true });
-        // Take what format they want to register as
         const formatPrompt = await interaction.followUp({
             content: 'Are you registering as a team or as a free agent?',
             components: [
@@ -74,7 +74,7 @@ module.exports = {
             },
             // Options
             {
-                time: 10000,
+                time: 120000,
                 reset: true,
                 target: interaction.user,
                 stopFilter: (message) => message.content.toLowerCase() === 'stop',
@@ -90,7 +90,7 @@ module.exports = {
             return;
         }
 
-        // Based on what they chose, take team info or free agent info
+        //Based on what they chose, take team info or free agent info
         switch (formatResult.value) {
             case 'Team': {
                 // Build a modal to take team info (team name and timezone)
@@ -159,6 +159,7 @@ module.exports = {
                         ) {
                             return;
                         }
+
                         // TODO: logic for determining validity of team name / timezone
                         return {
                             intr: modalSubmitInteraction,
@@ -167,7 +168,7 @@ module.exports = {
                     },
                     // Options
                     {
-                        time: 10000,
+                        time: 120000,
                         reset: true,
                         target: interaction.user,
                         stopFilter: (message) => message.content.toLowerCase() === 'stop',
@@ -188,9 +189,105 @@ module.exports = {
                 const minTeamSize = 2;
                 const maxTeamSize = 4;
 
+                await teamInfoResult.intr.deferReply({ ephemeral: true });
+
+                const playerIds = [];
+
                 // Build a modal to take team member info (osu! username) for each team member (minTeamSize to maxTeamSize)
-                for (let i = minTeamSize; i < maxTeamSize; i++) {
-                    return;
+                for (let i = minTeamSize; i <= maxTeamSize; i++) {
+                    const teamPlayerPrompt = await teamInfoResult.intr.followUp({
+                        content: `Please input the information for player number ${i}.`,
+                        components: [
+                            {
+                                type: ComponentType.ActionRow,
+                                components: [
+                                    {
+                                        type: ComponentType.Button,
+                                        customId: 'enter_response',
+                                        emoji: '⌨️',
+                                        label: 'Enter Response',
+                                        style: ButtonStyle.Primary
+                                    }
+                                ]
+                            }
+                        ],
+                        ephemeral: true
+                    });
+
+                    const teamPlayerResult = await CollectorUtils.collectByModal(
+                        teamPlayerPrompt,
+                        // Retrieve Result
+                        new ModalBuilder({
+                            customId: 'teamPlayerModal',
+                            title: 'Team Player Information',
+                            components: [
+                                {
+                                    type: ComponentType.ActionRow,
+                                    components: [
+                                        {
+                                            type: ComponentType.TextInput,
+                                            customId: 'osuId',
+                                            label: 'osu! ID',
+                                            style: TextInputStyle.Short,
+                                            required: true
+                                        }
+                                    ]
+                                },
+                                {
+                                    type: ComponentType.ActionRow,
+                                    components: [
+                                        {
+                                            type: ComponentType.TextInput,
+                                            customId: 'discordId',
+                                            label: 'Discord ID',
+                                            style: TextInputStyle.Short,
+                                            required: true
+                                        }
+                                    ]
+                                }
+                            ]
+                        }),
+                        async (modalSubmitInteraction) => {
+                            const osu = modalSubmitInteraction.components[0].components[0];
+                            const discord = modalSubmitInteraction.components[1].components[0];
+                            if (
+                                osu.type !== ComponentType.TextInput ||
+                                discord.type !== ComponentType.TextInput
+                            ) {
+                                return;
+                            }
+
+                            // TODO: logic for determining validity of team name / timezone
+                            return {
+                                intr: modalSubmitInteraction,
+                                value: { osu: osu.value, discord: discord.value }
+                            };
+                        },
+                        // Options
+                        {
+                            time: 120000,
+                            reset: true,
+                            target: interaction.user,
+                            stopFilter: (message) => message.content.toLowerCase() === 'stop',
+                            onExpire: async () => {
+                                await interaction.channel?.send(
+                                    'Too slow! Try being more decisive next time.'
+                                );
+                            }
+                        }
+                    );
+
+                    if (teamPlayerResult == undefined) {
+                        return;
+                    }
+
+                    const osuId = teamPlayerResult.value.osu;
+                    const discordId = teamPlayerResult.value.discord;
+                    await teamPlayerResult.intr.reply({
+                        content: `Player ${i} has been registered`,
+                        ephemeral: true
+                    });
+                    playerIds.push({ osuId, discordId });
                 }
 
                 break;
