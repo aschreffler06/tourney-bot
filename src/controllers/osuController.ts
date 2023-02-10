@@ -2,6 +2,7 @@ import { DateTime } from 'luxon';
 import { validateToken } from '../db/token';
 import axios from 'axios';
 import Config from '../../config/config.json';
+import { OsuUserInfo } from '../data_objects';
 
 const endpoint = 'https://osu.ppy.sh/api/v2';
 
@@ -29,19 +30,22 @@ async function getAccessToken(): Promise<[number, string]> {
  * @param name the name we want to search for
  * @returns A User object from the osu! api or null if there was an error
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-// i know this is bad but i don't know how to fix it
-async function getUserByName(name: string): Promise<any> {
+async function getUserByName(name: string): Promise<OsuUserInfo> {
     const token = await validateToken();
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };
     try {
         const user = await axios.get(`${endpoint}/users/${name}/osu?key=username`, config);
-        return user;
+        return new OsuUserInfo(
+            user.data.id,
+            name,
+            user.data.statistics.global_rank,
+            user.data.badges.length
+        );
     } catch (err) {
         console.log(err);
-        return null;
+        return new OsuUserInfo();
     }
 }
 
