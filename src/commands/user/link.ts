@@ -30,7 +30,10 @@ module.exports = {
                     badges: osuUser.badges
                 });
                 await player.save();
-                await interaction.reply('You have successfully linked your account!');
+                await interaction.reply({
+                    content: 'You have successfully linked your account!',
+                    ephemeral: true
+                });
                 // Update DB
             } else {
                 user.updateOne({
@@ -39,14 +42,16 @@ module.exports = {
                     badges: osuUser.badges
                 }).exec();
                 await user.save();
-                await interaction.reply(
-                    'Hopefully this link was used because you have a new discord account.'
-                );
+                await interaction.reply({
+                    content: 'You have successfully relinked your account!',
+                    ephemeral: true
+                });
             }
         } else {
-            await interaction.reply(
-                'There was an error. Please check that your name is inputted correctly.'
-            );
+            await interaction.reply({
+                content: 'There was an error. Please check that your name is inputted correctly.',
+                ephemeral: true
+            });
         }
         return;
     }
