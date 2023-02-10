@@ -17,18 +17,17 @@ module.exports = {
             return;
         }
         const osuUser = await getUserByName(osuName);
-        const osuId = osuUser.data.id;
-        if (osuUser) {
+        if (!(osuUser.id == -1)) {
             // Check if they are already in the DB. No multiaccounting so we assume that they are relinking to a new discord and will only cover that specific case
             // This will also force an update to their rank and badge count
-            const user = await Player.findById(osuId).exec();
+            const user = await Player.findById(osuUser.id).exec();
             // Put in DB
             if (!user) {
                 const player = new Player({
-                    _id: osuId,
+                    _id: osuUser.id,
                     discord: interaction.user.id,
-                    rank: osuUser.data.statistics.global_rank,
-                    badges: osuUser.data.badges.length
+                    rank: osuUser.rank,
+                    badges: osuUser.badges
                 });
                 await player.save();
                 await interaction.reply('You have successfully linked your account!');
@@ -36,8 +35,8 @@ module.exports = {
             } else {
                 user.updateOne({
                     discord: interaction.user.id,
-                    rank: osuUser.data.statistics.global_rank,
-                    badges: osuUser.data.badges.length
+                    rank: osuUser.rank,
+                    badges: osuUser.badges
                 }).exec();
                 await user.save();
                 await interaction.reply(
